@@ -1027,7 +1027,7 @@ find_and_merge_options (int fd, off_t file_offset, const char *prefix,
    is returned.  Return NULL on error.  */
 
 const char *
-debug_objcopy (const char *infile, bool rename)
+debug_objcopy (const char *infile)
 {
   const char *outfile;
   const char *errmsg;
@@ -1069,7 +1069,7 @@ debug_objcopy (const char *infile, bool rename)
     }
 
   outfile = make_temp_file ("debugobjtem");
-  errmsg = simple_object_copy_lto_debug_sections (inobj, outfile, &err, rename);
+  errmsg = simple_object_copy_lto_debug_sections (inobj, outfile, &err);
   if (errmsg)
     {
       unlink_if_ordinary (outfile);
@@ -1511,7 +1511,7 @@ cont1:
     for (i = 0; i < ltoobj_argc; ++i)
       {
 	const char *tem;
-	if ((tem = debug_objcopy (ltoobj_argv[i], !linker_output_rel)))
+	if ((tem = debug_objcopy (ltoobj_argv[i])))
 	  {
 	    obstack_ptr_grow (&argv_obstack, tem);
 	    n_debugobj++;
